@@ -41,30 +41,41 @@ def telnetIntoAvacom():
         tn.write(password + "\n")
 
     #Write commands
-    tn.write("cd system\n")
-    tn.write("sh collection.sh &\n")
-    tn.write("exit\n")
+    startCollectionOriginal(tn)
     
-    print ("Starting Collection Script")
-
     #Executing commands
     print (tn.read_all())
 
     print ("Done")
+
+def startCollectionOriginal(tnet):
+    tnet.write("cd system\n")
+    tnet.write("sh collection.sh &\n")
+    tnet.write("exit\n")
     
-def listAllFiles():
-    cmd = "ls\n"
-    return cmd
+    print ("Starting Collection Script")
 
+def downloadAvacomFiles(mainFolder):
+    username = 'admin'
+    password = '1234'
+    ip = '192.168.4.11'
 
+    print("Downloading Files")
 
-
+    subprocess.call('wget -O ' + mainFolder + 'ps_data_webcam.txt --user ' + username + ' --password ' + password + ' ' + ip + '/ps_data_webcam.txt', shell=True)
+    time.sleep(1)
+    subprocess.call('wget -O ' + mainFolder + 'top_data_webcam.txt --user ' + username + ' --password ' + password + ' ' + ip + '/top_data_webcam.txt', shell=True)
+    time.sleep(1)
+    subprocess.call('wget -O ' + mainFolder + 'date_data_webcam.txt --user ' + username + ' --password ' + password + ' ' + ip + '/date_data_webcam.txt', shell=True)
+    time.sleep(1)
+    subprocess.call('wget -O ' + mainFolder + 'netstat_data_webcam.txt --user ' + username + ' --password ' + password + ' ' + ip + '/netstat_data_webcam.txt', shell=True)
 
 def main():
-
-
     os.system('clear')
+    directory = '~/Documents/WebcamTest/'
     #startTCPDumpOnPi()
-    telnetIntoAvacom()
+    #telnetIntoAvacom()
+    downloadAvacomFiles(directory)
+    downloadAvacomFiles(directory)
 
 main()
