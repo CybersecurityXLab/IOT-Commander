@@ -16,9 +16,11 @@ def startTCPDumpOnPi():
     subprocess.call('sshpass -p '+ password + ' ssh ' + username + '@' + ip + ' ' + cmd, shell=True)
 
 
-
 def telnetIntoAvacom():
+    
     print ('Starting Telnet')
+    currentDT = datetime.datetime.now()
+    print (str(currentDT))
 
     username = 'root'
     password = 'hslwificam'
@@ -38,13 +40,29 @@ def telnetIntoAvacom():
         tn.read_until("Password: ")
         tn.write(password + "\n")
 
-    #execute commands
-    tn.write("ls\n")
+    #Write commands
+    tn.write("cd system\n")
+    tn.write("sh collection.sh &\n")
     tn.write("exit\n")
+    
+    print ("Starting Collection Script")
 
-    print tn.read_all()
+    #Executing commands
+    print (tn.read_all())
+
+    print ("Done")
+    
+def listAllFiles():
+    cmd = "ls\n"
+    return cmd
+
+
+
+
 
 def main():
+
+
     os.system('clear')
     #startTCPDumpOnPi()
     telnetIntoAvacom()
