@@ -2,7 +2,7 @@
 #telnet code based from example on https://docs.python.org/2/library/telnetlib.html
 
 import os,subprocess,random,time,datetime,sys,telnetlib
-
+from selenium import webdriver
 
 def startTCPDumpOnPi():
     print ('Starting SSH')
@@ -70,12 +70,22 @@ def downloadAvacomFiles(mainFolder):
     time.sleep(1)
     subprocess.call('wget -O ' + mainFolder + 'netstat_data_webcam.txt --user ' + username + ' --password ' + password + ' ' + ip + '/netstat_data_webcam.txt', shell=True)
 
+def accessAvacomWebPortal():
+    browser = webdriver.Chrome('/home/carson/Documents/Commander/IOT-Commander/chromedriver')
+    browser.get('http://admin:1234@192.168.4.11')
+    
+
+
+
+
+
 def main():
     os.system('clear')
     directory = '~/Documents/WebcamTest/'
     #startTCPDumpOnPi()
     #telnetIntoAvacom()
-    downloadAvacomFiles(directory)
-    downloadAvacomFiles(directory)
+    #downloadAvacomFiles(directory)
+    #downloadAvacomFiles(directory)
+    accessAvacomWebPortal()
 
 main()
