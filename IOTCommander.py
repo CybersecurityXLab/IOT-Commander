@@ -72,12 +72,25 @@ def downloadAvacomFiles(mainFolder):
 
 def accessAvacomWebPortal():
     browser = webdriver.Chrome('/home/carson/Documents/Commander/IOT-Commander/chromedriver')
-    browser.get('http://admin:1234@192.168.4.11')
-    
+    browser.maximize_window()
+    browser.get('http://admin:1234@192.168.4.11/')
+    time.sleep(1)
+    frame = browser.find_element_by_xpath('//*[@id="mainUrl"]')
+    browser.switch_to_frame(frame)
+    cs5list = browser.find_elements_by_class_name('cs5')
+    cs5list[2].click()
+    time.sleep(5)
+    clickAvacomDirectionalButton(browser,"\"Left\"", 50)
+    clickAvacomDirectionalButton(browser,"\"Right\"", 50)
+    clickAvacomDirectionalButton(browser,"\"Up\"", 50) 
+    clickAvacomDirectionalButton(browser,"\"Down\"", 50)
 
-
-
-
+def clickAvacomDirectionalButton(driver, direction, numClicks):
+    xpath = '//*[@title=' + direction + ']'
+    button = driver.find_element_by_xpath(xpath)
+    for clicks in range (numClicks):
+        button.click()
+    time.sleep(10)
 
 def main():
     os.system('clear')
@@ -87,5 +100,6 @@ def main():
     #downloadAvacomFiles(directory)
     #downloadAvacomFiles(directory)
     accessAvacomWebPortal()
+    #clickBrowserButton()
 
 main()
