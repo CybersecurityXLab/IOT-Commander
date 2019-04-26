@@ -7,7 +7,7 @@ from selenium import webdriver
 def pingPi():
     print ('Pinging Pi')
     
-    ip = '192.168.4.1'
+    ip = '192.168.1.1'
 
     #pings Pi 5 times
     cmd = 'ping -c 5 ' + ip 
@@ -18,7 +18,7 @@ def startTCPDumpOnPi():
     
     username = 'pi'
     password = 'pinkbanana55'
-    ip = '192.168.4.1'
+    ip = '192.168.1.1'
 
     #Executes tcpDump_5Min.py on RPI wireless interface for 5 mins and saves pcap in the Documents/Packet_Captures directory
     cmd = 'python Documents/Code/tcpDump_5Min.py'
@@ -32,7 +32,7 @@ def telnetIntoAvacom():
 
     user = 'root'
     password = 'hslwificam'
-    host = '192.168.4.11'
+    host = '192.168.1.116'
 
     #start telnet connection
     tn = telnetlib.Telnet(host)
@@ -83,17 +83,18 @@ def downloadAvacomFiles(mainFolder):
 
     username = 'admin'
     password = '1234'
-    ip = '192.168.4.11'
+    ip = '192.168.1.116'
+    timestr = time.strftime("%Y-%m-%d_%H:%M:%S")
 
     print("Downloading Files")
 
-    subprocess.call('wget -O ' + mainFolder + 'ps_data_webcam.txt --user ' + username + ' --password ' + password + ' ' + ip + '/ps_data_webcam.txt', shell=True)
+    subprocess.call('wget -O ' + mainFolder + 'ps_data_webcam_'+ timestr + '.txt --user ' + username + ' --password ' + password + ' ' + ip + '/ps_data_webcam.txt', shell=True)
     time.sleep(1)
-    subprocess.call('wget -O ' + mainFolder + 'top_data_webcam.txt --user ' + username + ' --password ' + password + ' ' + ip + '/top_data_webcam.txt', shell=True)
+    subprocess.call('wget -O ' + mainFolder + 'top_data_webcam_'+ timestr + '.txt --user ' + username + ' --password ' + password + ' ' + ip + '/top_data_webcam.txt', shell=True)
     time.sleep(1)
-    subprocess.call('wget -O ' + mainFolder + 'date_data_webcam.txt --user ' + username + ' --password ' + password + ' ' + ip + '/date_data_webcam.txt', shell=True)
+    subprocess.call('wget -O ' + mainFolder + 'date_data_webcam_'+ timestr + '.txt --user ' + username + ' --password ' + password + ' ' + ip + '/date_data_webcam.txt', shell=True)
     time.sleep(1)
-    subprocess.call('wget -O ' + mainFolder + 'netstat_data_webcam.txt --user ' + username + ' --password ' + password + ' ' + ip + '/netstat_data_webcam.txt', shell=True)
+    subprocess.call('wget -O ' + mainFolder + 'netstat_data_webcam_'+ timestr + '.txt --user ' + username + ' --password ' + password + ' ' + ip + '/netstat_data_webcam.txt', shell=True)
 
 def accessAvacomWebPortal():
     #start web browser
@@ -103,7 +104,7 @@ def accessAvacomWebPortal():
     browser.maximize_window()
 
     #go to camera url
-    browser.get('http://admin:1234@192.168.4.11/')
+    browser.get('http://admin:1234@192.168.1.116/')
     time.sleep(1)
 
     #go to frame where buttons are located
@@ -154,33 +155,39 @@ def enterpriseDiligent():
     #Wait 30 seconds
     time.sleep(30)
 
+    browser.close()
+
 
 def main():
-    #clear system buffer
-    os.system('clear')
+    for i in range (20):    
+        #clear system buffer
+        os.system('clear')
 
-    #location where webcam files will be saved
-    directory = '~/Documents/WebcamTest/'
+        #location where webcam files will be saved
+        directory = '~/Documents/WebcamTest/'
 
-    #ping pi
-    pingPi()
+        #ping pi
+        pingPi()
 
-    #start collection.sh script on webcam
-    startWebcamCollectionOriginal()
+        #start collection.sh script on webcam
+        startWebcamCollectionOriginal()
+ 
+        #scenario to run
+        enterpriseDiligent()
 
-    #scenario to run
-    enterpriseDiligent()
+        #executes twice to ensure wget does not fail
+        downloadAvacomFiles(directory)
+        downloadAvacomFiles(directory)
 
-    #executes twice to ensure wget does not fail
-    downloadAvacomFiles(directory)
-    downloadAvacomFiles(directory)
+        #ping pi
+        pingPi()
 
-    #ping pi
-    pingPi()
+        #remove any webcam collection results from webcam
+        removeWebcamData()
+        print("Completed Round")
+        time.sleep(60)       
+    print("Experiment Completed")
 
-    #remove any webcam collection results from webcam
-    removeWebcamData()
-    print("Complete")
 
 main()
 
