@@ -4,12 +4,12 @@
 import os,subprocess,random,time,datetime,sys,telnetlib
 from selenium import webdriver
 
-def pingPi():
-    print ('Pinging Pi')
+def pingRouter():
+    print ('Pinging Router')
     
     ip = '192.168.1.1'
 
-    #pings Pi 5 times
+    #pings router 5 times
     cmd = 'ping -c 5 ' + ip 
     subprocess.call(cmd, shell=True)
 
@@ -124,8 +124,10 @@ def clickAvacomDirectionalButton(driver, direction, numClicks):
     #Direct camera movement using directional buttons on website
     xpath = '//*[@title=' + direction + ']'
     button = driver.find_element_by_xpath(xpath)
+
     for clicks in range (numClicks):
         button.click()
+    
     time.sleep(10)
 
 
@@ -159,15 +161,20 @@ def enterpriseDiligent():
 
 
 def main():
+
+#Currently running Enterprise Diligent scenario in a for loop, will need to be modified to run a random set of scenarios once programmed
     for i in range (20):    
         #clear system buffer
         os.system('clear')
 
-        #location where webcam files will be saved
+        #location where webcam text files will be saved
         directory = '~/Documents/WebcamTest/'
 
-        #ping pi
-        pingPi()
+#FIX ME
+#Add time stamp method to log file to record start at stop
+
+        #ping router (used to show start and stop in packet capture)
+        pingRouter()
 
         #start collection.sh script on webcam
         startWebcamCollectionOriginal()
@@ -175,17 +182,20 @@ def main():
         #scenario to run
         enterpriseDiligent()
 
-        #executes twice to ensure wget does not fail
+        #executes twice to so that wget does not likely fail (it would be nice if there was a way to have wget retry if it fails automatically)
         downloadAvacomFiles(directory)
         downloadAvacomFiles(directory)
 
-        #ping pi
-        pingPi()
+        #ping router (used to show start and stop in packet capture)
+        pingRouter()
 
         #remove any webcam collection results from webcam
         removeWebcamData()
         print("Completed Round")
+
+        #Waiting one minute before starting next scenario (should be changed once scenarios are programmed)
         time.sleep(60)       
+
     print("Experiment Completed")
 
 
