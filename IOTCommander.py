@@ -158,11 +158,141 @@ def enterpriseDiligent():
     time.sleep(30)
 
     browser.close()
+    
+def enterpriseLazy():
+    print("Starting Enterprise Lazy Scenario")
+    currentDT = datetime.datetime.now()
+    print (str(currentDT))
 
+    #Sleep for 2 minutes
+    time.sleep(120)
+
+    #Access website, go to show live video
+    browser = accessAvacomWebPortal()
+
+    #Wait 30 seconds 
+    time.sleep (30) 
+
+    #Direct Movement for 10 seconds
+    clickAvacomDirectionalButton(browser,"\"Left\"", 25)
+    clickAvacomDirectionalButton(browser,"\"Right\"", 25)
+  
+
+    #Wait 30 seconds
+    time.sleep(30)
+
+    browser.close()
+
+def enterpriseNormal():
+    print("Starting Enterprise Normal Scenario")
+    currentDT = datetime.datetime.now()
+    print (str(currentDT))
+
+    #Sleep for 2 minutes
+    time.sleep(120)
+
+    #Access website, go to show live video
+    browser = accessAvacomWebPortal()
+
+    #Wait 30 seconds 
+    time.sleep (30) 
+
+    #Direct Movement for 40 seconds
+    clickAvacomDirectionalButton(browser,"\"Left\"", 50)
+    clickAvacomDirectionalButton(browser,"\"Right\"", 50)
+    clickAvacomDirectionalButton(browser,"\"Up\"", 50) 
+    clickAvacomDirectionalButton(browser,"\"Down\"", 30)
+
+    #Wait 30 seconds
+    time.sleep(30)
+
+    browser.close()
+
+def homeVacation():
+    print("Starting Home Vacation Scenario")
+    currentDT = datetime.datetime.now()
+    print (str(currentDT))
+
+    #Sleep for 1 minute
+    time.sleep(60)
+
+    for i in range (3):
+        #Access website, go to show live video
+        browser = accessAvacomWebPortal()
+
+        #Wait 15 seconds 
+        time.sleep (15) 
+
+        browser.close()
+
+        #keeps browser open for speicifed times
+        if i == 0:
+            time.sleep (45)
+        elif i == 1:
+            time.sleep (105)
+
+def homeWeekday():
+    print("Starting Home Weekday Scenario")
+    currentDT = datetime.datetime.now()
+    print (str(currentDT))
+
+    #Sleep for 1 minute
+    time.sleep(60)
+
+    for i in range (2):
+        #Access website, go to show live video
+        browser = accessAvacomWebPortal()
+
+        #Wait 30 seconds 
+        time.sleep (30) 
+
+        browser.close()
+
+        if i == 0:
+            time.sleep (90)
+
+def homeWeekend():
+    print("Starting Home Weekend Scenario")
+    currentDT = datetime.datetime.now()
+    print (str(currentDT))
+
+    #Sleep for 2 minutes
+    time.sleep(120)
+
+    
+    #Access website, go to show live video
+    browser = accessAvacomWebPortal()
+
+    #Wait 10 seconds 
+    time.sleep (10) 
+
+    browser.close()
+
+def infrastructure():
+    print("Starting Infrastructure Scenario")
+    currentDT = datetime.datetime.now()
+    print (str(currentDT))
+
+    #Sleep for 2 minutes
+    time.sleep(120)
+
+    
+    for i in range (2):
+        #Access website, go to show live video
+        browser = accessAvacomWebPortal()
+
+        if i == 0:
+            time.sleep (8)  
+        else:
+            time.sleep (7) 
+
+        browser.close()
+
+        if i == 0:
+            time.sleep (52)
 
 def main():
 
-#Currently running Enterprise Diligent scenario in a for loop, will need to be modified to run a random set of scenarios once programmed
     for i in range (20):    
         #clear system buffer
         os.system('clear')
@@ -179,8 +309,9 @@ def main():
         #start collection.sh script on webcam
         startWebcamCollectionOriginal()
  
-        #scenario to run
-        enterpriseDiligent()
+        #randomly executes scenarios
+        scenarios = [enterpriseDiligent, enterpriseLazy, enterpriseNormal,homeVacation, homeWeekday, homeWeekend, infrastructure]
+        random.choice(scenarios)()
 
         #executes twice to so that wget does not likely fail (it would be nice if there was a way to have wget retry if it fails automatically)
         downloadAvacomFiles(directory)
