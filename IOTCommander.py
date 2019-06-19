@@ -150,7 +150,7 @@ def enterpriseDiligent():
     clickAvacomDirectionalButton(browser,"\"Left\"", 50)
     clickAvacomDirectionalButton(browser,"\"Right\"", 50)
     clickAvacomDirectionalButton(browser,"\"Up\"", 50) 
-    clickAvacomDirectionalButton(browser,"\"Down\"", 30)
+    clickAvacomDirectionalButton(browser,"\"Down\"", 50)
     clickAvacomDirectionalButton(browser,"\"Left\"", 50)
     clickAvacomDirectionalButton(browser,"\"Right\"", 50)
 
@@ -170,16 +170,16 @@ def enterpriseLazy():
     #Access website, go to show live video
     browser = accessAvacomWebPortal()
 
-    #Wait 30 seconds 
-    time.sleep (30) 
+    #Wait 10 seconds 
+    time.sleep (10) 
 
     #Direct Movement for 10 seconds
     clickAvacomDirectionalButton(browser,"\"Left\"", 25)
     clickAvacomDirectionalButton(browser,"\"Right\"", 25)
   
 
-    #Wait 30 seconds
-    time.sleep(30)
+    #Wait 10 seconds
+    time.sleep(10)
 
     browser.close()
 
@@ -197,14 +197,13 @@ def enterpriseNormal():
     #Wait 30 seconds 
     time.sleep (30) 
 
-    #Direct Movement for 40 seconds
-    clickAvacomDirectionalButton(browser,"\"Left\"", 50)
-    clickAvacomDirectionalButton(browser,"\"Right\"", 50)
-    clickAvacomDirectionalButton(browser,"\"Up\"", 50) 
-    clickAvacomDirectionalButton(browser,"\"Down\"", 30)
+    #Direct Movement for 15 seconds
+    clickAvacomDirectionalButton(browser,"\"Left\"", 25)
+    clickAvacomDirectionalButton(browser,"\"Right\"", 25)
+    clickAvacomDirectionalButton(browser,"\"Left\"", 25) 
 
-    #Wait 30 seconds
-    time.sleep(30)
+    #Wait 15 seconds
+    time.sleep(15)
 
     browser.close()
 
