@@ -137,7 +137,13 @@ def enterpriseDiligent():
     print("Starting Enterprise Diligent Scenario")
     currentDT = datetime.datetime.now()
     print (str(currentDT))
+    '''
+    print("How would you like to configure timing of scenarios?")
+    print("\n(1) Input time\n(2) Random timing\n(3) Default timing")
+    option = raw_input("> Enter Option: ")
 
+    if option == '3':
+    '''
     #Sleep for 2 minutes
     time.sleep(10)
 
@@ -167,12 +173,81 @@ def enterpriseDiligent():
     time.sleep(10)
 
     browser.close()
+
+'''
+    elif option == '2':
+        #sleep for random time less than 2 minutes
+        time.sleep(random.randrange(120))
+
+        # Access website, go to show live video
+        browser = accessAvacomWebPortal()
+
+        # sleep for random time less than 1 minute
+        time.sleep(random.randrange(60))
+
+        directionalTime = random.randrange(50)
+
+        # Direct Movement, each direction takes less than 10 seconds
+        currentDT = datetime.datetime.now()
+        print (str(currentDT) + " :Moving camera now")
+        clickAvacomDirectionalButton(browser, "\"Left\"", directionalTime)
+        clickAvacomDirectionalButton(browser, "\"Right\"", directionalTime)
+        clickAvacomDirectionalButton(browser, "\"Up\"", directionalTime)
+        clickAvacomDirectionalButton(browser, "\"Down\"", directionalTime)
+        clickAvacomDirectionalButton(browser, "\"Left\"", directionalTime)
+        clickAvacomDirectionalButton(browser, "\"Right\"", directionalTime)
+        print (str(currentDT) + " :End camera movement")
+
+        #Wait for random time less than 30 seconds
+        time.sleep(random.randrange(30))
+
+        browser.close()
+
+    else:
+        browserWaitTime = int(raw_input("How long to wait before opening browser? (Input time in seconds): "))
+        portalWaitTime = int(raw_input("How long to wait after opening portal? (Input time in seconds): "))
+        directionTime = int(raw_input("How long to move cam in each direction? (Input time in seconds): "))
+        browserCloseTime = int(raw_input("How long to wait before closing browser? (Input time in seconds): "))
+
+        # sleep for user specified time
+        time.sleep(browserWaitTime)
+
+        # Access website, go to show live video
+        browser = accessAvacomWebPortal()
+
+        # sleep for user specified time
+        time.sleep(portalWaitTime)
+
+        # Direct Movement, each direction for user specified time
+        currentDT = datetime.datetime.now()
+        print (str(currentDT) + " :Moving camera now")
+        clickAvacomDirectionalButton(browser, "\"Left\"", directionTime)
+        clickAvacomDirectionalButton(browser, "\"Right\"", directionTime)
+        clickAvacomDirectionalButton(browser, "\"Up\"", directionTime)
+        clickAvacomDirectionalButton(browser, "\"Down\"", directionTime)
+        clickAvacomDirectionalButton(browser, "\"Left\"", directionTime)
+        clickAvacomDirectionalButton(browser, "\"Right\"", directionTime)
+        print (str(currentDT) + " :End camera movement")
+
+        # Wait for user specified time
+        time.sleep(browserCloseTime)
+
+        browser.close()
+'''
+
     
 def enterpriseLazy():
     print("Starting Enterprise Lazy Scenario")
     currentDT = datetime.datetime.now()
     print (str(currentDT))
+    '''
+    print("How would you like to configure timing of scenarios?")
+    print("\n(1) Input time\n(2) Random timing\n(3) Default timing")
+    option = raw_input("> Enter Option: ")
 
+
+    if option == '3':
+    '''
     #Sleep for 2 minutes
     time.sleep(120)
 
@@ -197,12 +272,72 @@ def enterpriseLazy():
     time.sleep(10)
 
     browser.close()
-    
+    '''
+    elif option == '2':
+        #sleep for random time less than 2 minutes
+        time.sleep(random.randrange(120))
+
+        # Access website, go to show live video
+        browser = accessAvacomWebPortal()
+
+        # sleep for random time less than 10 seconds
+        time.sleep(random.randrange(10))
+
+        directionalTime = random.randrange(25)
+
+        # Direct Movement, each direction takes less than 5 seconds
+        currentDT = datetime.datetime.now()
+        print (str(currentDT) + " :Moving camera now")
+        clickAvacomDirectionalButton(browser, "\"Left\"", directionalTime)
+        clickAvacomDirectionalButton(browser, "\"Right\"", directionalTime)
+        print (str(currentDT) + " :End camera movement")
+        
+
+        # sleep for random time less than 10 seconds
+        time.sleep(random.randrange(10))
+
+        browser.close()
+
+    else:
+        browserWaitTime = int(raw_input("How long to wait before opening browser? (Input time in seconds): "))
+        portalWaitTime = int(raw_input("How long to wait after opening portal? (Input time in seconds): "))
+        directionTime = int(raw_input("How long to move cam in each direction? (Input time in seconds): "))
+        browserCloseTime = int(raw_input("How long to wait before closing browser? (Input time in seconds): "))
+
+        # sleep for user specified time
+        time.sleep(browserWaitTime)
+
+        # Access website, go to show live video
+        browser = accessAvacomWebPortal()
+
+        # sleep for user specified time
+        time.sleep(portalWaitTime)
+
+        # Direct Movement, each direction for user specified time
+        currentDT = datetime.datetime.now()
+        print (str(currentDT) + " :Moving camera now")
+        clickAvacomDirectionalButton(browser, "\"Left\"", directionTime)
+        clickAvacomDirectionalButton(browser, "\"Right\"", directionTime)
+        print (str(currentDT) + " :End camera movement")
+        
+
+        # Wait for user specified time
+        time.sleep(browserCloseTime)
+
+        browser.close()
+'''
 def enterpriseNormal():
     print("Starting Enterprise Normal Scenario")
     currentDT = datetime.datetime.now()
     print (str(currentDT))
-   
+    '''
+    print("How would you like to configure timing of scenarios?")
+    print("\n(1) Input time\n(2) Random timing\n(3) Default timing")
+    option = raw_input("> Enter Option: ")
+
+
+    if option == '3':
+    '''
     #Sleep for 2 minutes
     time.sleep(120)
 
@@ -227,13 +362,72 @@ def enterpriseNormal():
     time.sleep(15)
 
     browser.close()
+'''
+    elif option == '2':
+        #sleep for random time less than 2 minutes
+        time.sleep(random.randrange(120))
 
+        # Access website, go to show live video
+        browser = accessAvacomWebPortal()
+
+        # sleep for random time less than 30 seconds
+        time.sleep(random.randrange(30))
+
+        directionalTime = random.randrange(25)
+
+        #Direct Movement for up to 15 seconds
+        currentDT = datetime.datetime.now()
+        print (str(currentDT) + " :Moving camera now")
+        clickAvacomDirectionalButton(browser,"\"Left\"", directionalTime)
+        clickAvacomDirectionalButton(browser,"\"Right\"", directionalTime)
+        clickAvacomDirectionalButton(browser,"\"Left\"", directionalTime)
+        print (str(currentDT) + " :End camera movement")
+
+        #Wait for random time less than 15 seconds
+        time.sleep(random.randrange(15))
+
+        browser.close()
+
+    else:
+        browserWaitTime = int(raw_input("How long to wait before opening browser? (Input time in seconds): "))
+        portalWaitTime = int(raw_input("How long to wait after opening portal? (Input time in seconds): "))
+        directionTime = int(raw_input("How long to move cam in each direction? (Input time in seconds): "))
+        browserCloseTime = int(raw_input("How long to wait before closing browser? (Input time in seconds): "))
+
+        # sleep for user specified time
+        time.sleep(browserWaitTime)
+
+        # Access website, go to show live video
+        browser = accessAvacomWebPortal()
+
+        # sleep for user specified time
+        time.sleep(portalWaitTime)
+
+        # Direct Movement, each direction for user specified time
+        currentDT = datetime.datetime.now()
+        print (str(currentDT) + " :Moving camera now")
+        clickAvacomDirectionalButton(browser, "\"Left\"", directionTime)
+        clickAvacomDirectionalButton(browser, "\"Right\"", directionTime)
+        clickAvacomDirectionalButton(browser, "\"Left\"", directionTime)  
+        print (str(currentDT) + " :End camera movement")
+
+        # Wait for user specified time
+        time.sleep(browserCloseTime)
+
+        browser.close()
+'''
 
 def homeVacation():
     print("Starting Home Vacation Scenario")
     currentDT = datetime.datetime.now()
     print (str(currentDT))
-    
+    '''
+    print("How would you like to configure timing of scenarios?")
+    print("\n(1) Input time\n(2) Random timing\n(3) Default timing")
+    option = raw_input("> Enter Option: ")
+
+    if option == '3':
+    '''
     #Sleep for 1 minute
     time.sleep(60)
 
@@ -253,14 +447,58 @@ def homeVacation():
             time.sleep (45)
         elif i == 1:
             time.sleep (105)
-   
+    '''
+    elif option == '2':
+        #Sleep for less than 1 minute
+        time.sleep(random.randrange(60))
+
+        for i in range (3):
+            #Access website, go to show live video
+            browser = accessAvacomWebPortal()
+
+            #Wait randomw time less than 15 seconds
+            time.sleep (random.randrange(15)) 
+
+            browser.close()
+
+            #keeps browser open for random times
+            if i == 0:
+                time.sleep (random.randrange(45))
+            elif i == 1:
+                time.sleep (random.randrange(105))
+    else:
+        browserWaitTime = int(raw_input("How long to wait before opening browser? (Input time in seconds): "))
+        browserCloseTime = int(raw_input("How long to wait before closing browser? (Input time in seconds): "))
+       
+
+        for i in range (3):
+            #Sleep for user specified time
+            time.sleep(browserWaitTime)
+
+            #Access website, go to show live video
+            browser = accessAvacomWebPortal()
+
+            #Wait randomw time less than 15 seconds
+            time.sleep (browserCloseTime) 
+
+            browser.close()
+
+    
+'''
 
 
 def homeWeekday():
     print("Starting Home Weekday Scenario")
     currentDT = datetime.datetime.now()
     print (str(currentDT))
+    '''
+    print("How would you like to configure timing of scenarios?")
+    print("\n(1) Input time\n(2) Random timing\n(3) Default timing")
+    option = raw_input("> Enter Option: ")
 
+
+    if option == '3':
+    '''
     #Sleep for 1 minute
     time.sleep(60)
 
@@ -277,12 +515,52 @@ def homeWeekday():
 
         if i == 0:
             time.sleep (90)
-    
+    '''
+    elif option == '2':
+        #Sleep for random time less than 1 minute
+        time.sleep(random.randrange(60))
+
+        for i in range (2):
+            #Access website, go to show live video
+            browser = accessAvacomWebPortal()
+
+            #Wait 30 seconds 
+            time.sleep (random.randrange(30)) 
+
+            browser.close()
+
+            if i == 0:
+                time.sleep (random.randrange(90))
+
+    else:
+        browserWaitTime = int(raw_input("How long to wait before opening browser? (Input time in seconds): "))
+        browserCloseTime = int(raw_input("How long to wait before closing browser? (Input time in seconds): "))
+
+        for i in range (2):
+            #Sleep for user specified time
+            time.sleep(browserWaitTime)
+
+            #Access website, go to show live video
+            browser = accessAvacomWebPortal()
+
+            #Wait randomw time less than 15 seconds
+            time.sleep (browserCloseTime) 
+
+            browser.close()
+
+'''
 def homeWeekend():
     print("Starting Home Weekend Scenario")
     currentDT = datetime.datetime.now()
     print (str(currentDT))
+    '''
+    print("How would you like to configure timing of scenarios?")
+    print("\n(1) Input time\n(2) Random timing\n(3) Default timing")
+    option = raw_input("> Enter Option: ")
 
+
+    if option == '3':
+    '''
     #Sleep for 2 minutes
     time.sleep(120)
 
@@ -297,12 +575,50 @@ def homeWeekend():
 
 
     browser.close()
-   
+    '''
+    elif option == '2':
+        #Sleep for random time less than 2 minutes
+        time.sleep(random.randrange(120))
+
+        
+        #Access website, go to show live video
+        browser = accessAvacomWebPortal()
+
+        #Wait random time less than 10 seconds 
+        time.sleep (random.randrange(10)) 
+
+
+        browser.close()
+
+    else:
+        browserWaitTime = int(raw_input("How long to wait before opening browser? (Input time in seconds): "))
+        browserCloseTime = int(raw_input("How long to wait before closing browser? (Input time in seconds): "))
+
+        #Sleep for random time less than 2 minutes
+        time.sleep(browserWaitTime)
+
+        
+        #Access website, go to show live video
+        browser = accessAvacomWebPortal()
+
+        #Wait random time less than 10 seconds 
+        time.sleep (browserCloseTime) 
+        
+'''
 def infrastructure():
     print("Starting Infrastructure Scenario")
     currentDT = datetime.datetime.now()
     print (str(currentDT))
+    '''
+    print("How would you like to configure timing of scenarios?")
+    print("\n(1) Input time\n(2) Random timing\n(3) Default timing")
+    option = raw_input("> Enter Option: ")
 
+    #Sleep for 2 minutes
+    time.sleep(120)
+
+    if option == '3':
+    '''
     for i in range (2):
         #Access website, go to show live video
         currentDT = datetime.datetime.now()
@@ -318,7 +634,38 @@ def infrastructure():
 
         if i == 0:
             time.sleep (52)
+    '''
+    elif option == '2':
+        for i in range (2):
+            #Access website, go to show live video
+            browser = accessAvacomWebPortal()
 
+            if i == 0:
+                time.sleep (random.randrange(10))  
+            else:
+                time.sleep (random.randrange(15)) 
+
+            browser.close()
+
+            if i == 0:
+                time.sleep (random.randrange(60))
+
+    else:
+        browserWaitTime = int(raw_input("How long to wait before opening browser? (Input time in seconds): "))
+        browserCloseTime = int(raw_input("How long to wait before closing browser? (Input time in seconds): "))
+
+        for i in range (2):
+            #Sleep for user specified time
+            time.sleep(browserWaitTime)
+
+            #Access website, go to show live video
+            browser = accessAvacomWebPortal()
+
+            #Wait randomw time less than 15 seconds
+            time.sleep (browserCloseTime) 
+
+            browser.close()
+'''
 
 def hPing3():
     print("Starting Hping3 Attack Scenario")
@@ -474,19 +821,17 @@ def scenario1():
 
 
 def main():
-    global f #file for writing timestamps and actions into
-    
-    currentDT = datetime.datetime.now()
-    f = open(str(currentDT) + "_Labels.txt","w+")
-    
 
+    currentDT = datetime.datetime.now()
+    global f
+    f = open(str(currentDT) + "_Labels.txt","w+")
 
     for i in range (2):
         #clear system buffer
         os.system('clear')
 
         #location where webcam text files will be saved
-        directory = "~/Documents/WebcamTest/"
+        directory = '~/Documents/WebcamTest/'
 
 
         #ping router (used to show start and stop in packet capture)
@@ -522,9 +867,11 @@ def main():
 
         print("Experiment Completed")
 
-    
+
     #currentDT = datetime.datetime.now()
     #f.write(str(currentDT) + " - scenarios done\n" )
+
+
 main()
 
 
