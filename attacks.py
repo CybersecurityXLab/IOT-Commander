@@ -8,7 +8,8 @@ All parameters are assumed to be in the format specified within the "< >"
 
 
 import os
-
+import AvacomControl
+import time
 
 
 def hPing3(ip, packets, pwd):
@@ -64,3 +65,29 @@ def bruteForce(ip, pwdFile, pwd):
     os.system('echo %s|sudo -S %s' % (str(pwd), command))
 
 #end bruteForce
+
+def avacomCommand(ip, command):
+    """
+    This method passes a terminal command to the avacom webcam via telnet
+        Parameters:
+        ip: <string> ip address of the avacom webcam
+        command: <string> command to be executed on the avacom webcam
+    """
+    tn = AvacomControl.telnetIntoAvacom(ip)
+    time.sleep(10)
+    tn.write(command)
+    
+    time.sleep(10)
+#end avacomCommand
+
+
+#avacomCommand("10.0.0.12","ping -s 5000 -c 100 10.0.0.4")
+#print("done")
+
+
+
+
+
+
+
+

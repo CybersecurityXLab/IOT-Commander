@@ -12,18 +12,18 @@ from playsound import playsound
 
 """  AVACOM Webcam Modules"""
 
-def telnetIntoAvacom():
+def telnetIntoAvacom(host):
     #Code from IOT Commander
     #telnets into Avacom webcam
     #essential for any manipulation of the Avacom webcam    
+    #host: <string> ip address of the target webcam
 
     print ('Starting Telnet')
-    currentDT = datetime.datetime.now()
-    print (str(currentDT))
+
 
     user = 'root'
     password = 'hslwificam'
-    host = '192.168.1.116'
+    
 
     #start telnet connection
     tn = telnetlib.Telnet(host)
@@ -36,11 +36,11 @@ def telnetIntoAvacom():
 
     return tn
 
-def startWebcamCollection():
+def startWebcamCollection(host):
     #code from IOT Commander
     #collects lines from terminal during telnet session
 
-    tnet = telnetIntoAvacom()
+    tnet = telnetIntoAvacom(host)
 
     print ("Starting Collection Script")
     tnet.write(b"cd system \n")
@@ -53,10 +53,10 @@ def startWebcamCollection():
         line = tnet.read_until("\n")
         print(line)
 
-def removeWebcamData():
+def removeWebcamData(host):
     #code from IOT Commander
     #Removes colleted data from the camera
-    tnet = telnetIntoAvacom()
+    tnet = telnetIntoAvacom(host)
 
     print ("Removing Webcam Data")
     tnet.write(b"cd system/www \n")
@@ -70,37 +70,37 @@ def removeWebcamData():
         print(line)
     
 
-def downloadAvacomFiles(mainFolder):
+def downloadAvacomFiles(mainFolder,host):
     #From IOT Commander
     #Download files from webcam
 
     username = 'admin'
     password = '1234'
-    ip = '192.168.1.116'
+    #ip = '192.168.1.116'
     timestr = time.strftime("%Y-%m-%d_%H:%M:%S")
 
     print("Downloading Files")
 
-    subprocess.call('wget -O ' + mainFolder + timestr + '_ps_data_webcam' + '.txt --user ' + username + ' --password ' + password + ' ' + ip + '/ps_data_webcam.txt', shell=True)
+    subprocess.call('wget -O ' + mainFolder + timestr + '_ps_data_webcam' + '.txt --user ' + username + ' --password ' + password + ' ' + host + '/ps_data_webcam.txt', shell=True)
     time.sleep(1)
-    subprocess.call('wget -O ' + mainFolder + timestr + '_top_data_webcam' + '.txt --user ' + username + ' --password ' + password + ' ' + ip + '/top_data_webcam.txt', shell=True)
+    subprocess.call('wget -O ' + mainFolder + timestr + '_top_data_webcam' + '.txt --user ' + username + ' --password ' + password + ' ' + host + '/top_data_webcam.txt', shell=True)
     time.sleep(1)
-    subprocess.call('wget -O ' + mainFolder + timestr + '_date_data_webcam' + '.txt --user ' + username + ' --password ' + password + ' ' + ip + '/date_data_webcam.txt', shell=True)
+    subprocess.call('wget -O ' + mainFolder + timestr + '_date_data_webcam' + '.txt --user ' + username + ' --password ' + password + ' ' + host + '/date_data_webcam.txt', shell=True)
     time.sleep(1)
-    subprocess.call('wget -O ' + mainFolder + timestr +'_netstat_data_webcam' + '.txt --user ' + username + ' --password ' + password + ' ' + ip + '/netstat_data_webcam.txt', shell=True)
+    subprocess.call('wget -O ' + mainFolder + timestr +'_netstat_data_webcam' + '.txt --user ' + username + ' --password ' + password + ' ' + host + '/netstat_data_webcam.txt', shell=True)
 
-def accessAvacomWebPortal():
+def accessAvacomWebPortal(host):
     #From IOT Commander
     #Initates access to the Avacon portal for control of the webcam
 
     #start web browser
-    browser = webdriver.Chrome('/home/carson/Documents/Commander/IOT-Commander/chromedriver')
+    browser = webdriver.Chrome('/home/carson/Documents/Commander/IOT-Commander/chromedriver') #FIX WITH RELATIVE PATH
 
     #maximize window
     browser.maximize_window()
 
     #go to camera url
-    browser.get('http://admin:1234@192.168.1.116/')
+    browser.get('http://admin:1234@' + host +'/')
     time.sleep(1)
 
     #go to frame where buttons are located
@@ -124,8 +124,24 @@ def clickAvacomDirectionalButton(driver, direction, numClicks):
 
     for clicks in range (numClicks):
         button.click()
+        
+        
     
-    time.sleep(10)
+    #time.sleep(5)
 
+def avacomHorizPan(driver, duration):
 
+    for i in range(duration):
+        clickAvacomDirectionalButton(driver, "\"Right\"", 25)
+        time.sleep(5)
+        clickAvacomDirectionalButton(driver, "\"Left\"", 25)
+        time.sleep(5)
+
+def avacomVertPan(driver, duration):
+
+    for i in range(duration):
+        clickAvacomDirectionalButton(driver, "\"Up\"", 25)
+        time.sleep(5)
+        clickAvacomDirectionalButton(driver, "\"Down\"", 25)
+        time.sleep(5)
 

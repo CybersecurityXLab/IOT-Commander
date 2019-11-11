@@ -2,7 +2,7 @@
 This program plays prerecorded .wav files for use with IoT home assistants.
 """
 
-fileLocation = "/home/thomas/Documents/IoTCommanderWIP/VoiceRecordings/" #location of file of WAVs
+fileLocation = "~/Documents/ModularCommander/IOT-Commander/VoiceRecordings/" #location of file of WAVs
 import os
 
 def setFileLocation(path):
@@ -96,5 +96,4 @@ def compMusicOn():
     playAudio("Echo_comp_play_music.wav")
 #end compMusicOn()
 
-compWeather()
 
