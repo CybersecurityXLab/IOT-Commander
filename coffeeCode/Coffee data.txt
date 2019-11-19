@@ -1,5 +1,0 @@
-PCAP DATA:
-Coffee Pot IP: 10.0.0.19
-Phone IP: 10.0.0.13
-
-
