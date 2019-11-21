@@ -10,6 +10,7 @@ Dependencies:
 
 import audioPlayer, lampControl, utilities,AvacomControl,attacks #required modules
 import time # needed to sleep between commands
+import datetime
 import threading # needed to operate lamp with other devices
 
 
@@ -20,17 +21,38 @@ LOCAL VARIABLES: will need to be updated per device
 sudoPwd = "N@chos4life"  # local password to utilize sudo
 
 
-tpLightIP = "10.0.0.4"  #ip of the tp link lamp
-avacomIP= "10.0.0.11"   #ip of the avacom webcam
+tpLightIP = "10.0.0.3"  #ip of the tp link lamp
+avacomIP= "10.0.0.2"   #ip of the avacom webcam
 ghIP = "10.0.0.10"      #ip of the google home
 
+
+"""
+Time Keeping File
+"""
+timeFile = str(datetime.datetime.now()) + "_Scenario_Times.txt"
+
+writeFile = open(timeFile, "w")
+writeFile.close()
+writeFile = open(timeFile, "a+")
+
+
+def timeKeeper(moduleName,textFile, mode):
+    #This functions accepts the name of the module, the name of the text file to write to, and whether the method started or ended and adds the start and end timestamps to a textfile for logging
+
+    currentTime = datetime.datetime.now()
+    #print(currentTime)    
+    #O = open(textFile, "a+")
+    output = str(moduleName) + " " + mode + " " + str(currentTime) + "\n"
+    textFile.write(str(output))
+    #O.close()
+#end timeKeeper
 """
     Wake Up Scenarios
 **********************************************************************************************************
 """
 
 def wakeUp():
- 
+    timeKeeper("WakeUp", writeFile, "Beginning")
     lampControl.lightOn(tpLightIP)
     time.sleep(5)
     audioPlayer.ghWeather()
@@ -44,7 +66,7 @@ def wakeUp():
     audioPlayer.ghYoutubeClose()
     time.sleep(5)
     lampControl.lightOff(tpLightIP)
-    
+    timeKeeper("WakeUp", writeFile, "Ending") 
 #end wakeUp
 
 def DOSWakeUp(target):
@@ -52,19 +74,23 @@ def DOSWakeUp(target):
     dosThread = threading.Thread(target=attacks.hPing3, args = (target, 5000, sudoPwd))
     wakeThread = threading.Thread(target = wakeUp, args = ())
     wakeThread.start()
+    timeKeeper("DoS Attack", writeFile, "Beginning")
     dosThread.start()
     dosThread.join()
     wakeThread.join()
+    timeKeeper("DoS Attack", writeFile, "Ending")
 #end DOSWakeUp()
 
-def PingWakeUp(target,size,count):
+def pingWakeUp(target,size,count):
     #accepts the IP of the device to attack, the size of the packet, and the number of attacks
     attackThread = threading.Thread(target=attacks.ping, args = (target, size, count))
     wakeThread = threading.Thread(target = wakeUp, args = ())
     wakeThread.start()
-    attackTread.start()
+    timeKeeper("Ping Attack", writeFile, "Beginning")
+    attackThread.start()
     attackThread.join()
     wakeThread.join()
+    timeKeeper("Ping Attack", writeFile, "Ending")
 #end PingWakeUp()
 
 def scanWakeUp(target):
@@ -72,9 +98,11 @@ def scanWakeUp(target):
     attackThread = threading.Thread(target=attacks.scan, args = (target))
     wakeThread = threading.Thread(target = wakeUp, args = ())
     wakeThread.start()
-    attackTread.start()
+    timeKeeper("Scan", writeFile, "Beginning")
+    attackThread.start()
     attackThread.join()
     wakeThread.join()
+    timeKeeper("Scan", writeFile, "Ending")
 #end scanWakeUp()
 
 """
@@ -84,7 +112,8 @@ def scanWakeUp(target):
     
 
 def houseParty():
-    browser = AvacomControl.accessAvacomWebPortal()
+    timeKeeper("House Party", writeFile, "Beginning")
+    browser = AvacomControl.accessAvacomWebPortal(avacomIP)
     time.sleep(10)
     lampThread= threading.Thread(target = lampControl.strobeLight, args=(tpLightIP,10))
     lampThread.start()
@@ -102,7 +131,7 @@ def houseParty():
     audioPlayer.ghYoutubeClose()
     time.sleep(5)
     audioPlayer.compMusicOff()
-
+    timeKeeper("House Party", writeFile, "Ending")
     
 #end houseParty
 
@@ -111,10 +140,11 @@ def scanHouseParty(target):
     attackThread = threading.Thread(target=attacks.scan, args = (target))
     housePartyThread = threading.Thread(target = houseParty, args = ())
     houseParty.start()
-    attackTread.start()
+    timeKeeper("Scan", writeFile, "Begining")
+    attackThread.start()
     attackThread.join()
     houseParty.join()
-
+    timeKeeper("Scan", writeFile, "Ending")
 #end scanHouseParty()
 
 def pingHouseParty(target, size, count):
@@ -122,19 +152,23 @@ def pingHouseParty(target, size, count):
     attackThread = threading.Thread(target=attacks.ping, args = (target, size, count))
     housePartyThread = threading.Thread(target = houseParty, args = ())
     houseParty.start()
-    attackTread.start()
+    timeKeeper("Ping Attack", writeFile, "Beginning")
+    attackThread.start()
     attackThread.join()
     houseParty.join()
+    timeKeeper("Ping", writeFile, "Ending")
 
 #end pingHouseParty()
 def DOSHouseParty(target):
     #accepts the IP of the device to DOS
+    timeKeeper("DoS Attack", writeFile, "Beginning")
     attackThread = threading.Thread(target=attacks.hPing3, args = (target, 5000, sudoPwd))
     housePartyThread = threading.Thread(target = houseParty, args = ())
-    houseParty.start()
-    attackTread.start()
+    housePartyThread.start()
+    attackThread.start()
     attackThread.join()
-    houseParty.join()
+    housePartyThread.join()
+    timeKeeper("Dos Attack", writeFile, "Ending")
 
 #end DOSHouseParty()
 
@@ -145,11 +179,12 @@ def DOSHouseParty(target):
 """
 
 def enterpriseNormalHours():
+    timeKeeper("Enterprise Normal Businesss Hours", writeFile, "Begining")
     browser = AvacomControl.accessAvacomWebPortal(avacomIP)
     time.sleep(10)
     AvacomControl.avacomHorizPan(browser, 2)
     browser.close()
-
+    timeKeeper("Enterprise Normal Business Hours", writeFile, "Ending")
 #end enterpriseNormalHours
 
 def scanEntNH(target):
@@ -157,10 +192,11 @@ def scanEntNH(target):
     attackThread = threading.Thread(target=attacks.scan, args = (target))
     entNHThread = threading.Thread(target = enterpriseNormalHours, args = ())
     entNHThread.start()
-    attackTread.start()
+    timeKeeper("Scan", writeFile, "Beginning")
+    attackThread.start()
     attackThread.join()
     entNHThread.join()
-
+    timeKeeper("Scan", writeFile, "Ending")
 #end scaneEntNH()
 
 def pingEntNH(target, size, count):
@@ -168,9 +204,11 @@ def pingEntNH(target, size, count):
     attackThread = threading.Thread(target=attacks.ping, args = (target, size, count))
     entNHThread = threading.Thread(target = enterpriseNormalHours, args = ())
     entNHThread.start()
-    attackTread.start()
+    timeKeeper("Ping Attack", writeFile, "Beginning")
+    attackThread.start()
     attackThread.join()
     entNHThread.join()
+    timeKeeper("Ping Attack", writeFile, "Ending")
 
 #end pingEntNH()
 def DOSEntNH(target):
@@ -178,9 +216,11 @@ def DOSEntNH(target):
     attackThread = threading.Thread(target=attacks.hPing3, args = (target, 5000, sudoPwd))
     entNHThread = threading.Thread(target = enterpriseNormalHours, args = ())
     entNHThread.start()
-    attackTread.start()
+    timeKeeper("DoS Attack", writeFile, "Beginning")
+    attackThread.start()
     attackThread.join()
     entNHThread.join()
+    timeKeeper("DoS Attack", writeFile, "Ending")
 
 #end DOSEntNH()
 
@@ -190,6 +230,7 @@ def DOSEntNH(target):
 """
 
 def enterpriseAfterHours():
+    timeKeeper("Enterprise After Hours", writeFile, "Begining")
     #Browser setup
     browser = AvacomControl.accessAvacomWebPortal(avacomIP)
     time.sleep(10)
@@ -201,7 +242,7 @@ def enterpriseAfterHours():
     
     #cameraThread.join()
     browser.close()
-    
+    timeKeeper("Enterprise After Hours", writeFile, "Ending")
 #end enterpriseAfterHours
 
 def scanEntAf(target):
@@ -209,9 +250,11 @@ def scanEntAf(target):
     attackThread = threading.Thread(target=attacks.scan, args = (target))
     entAfThread = threading.Thread(target = enterpriseAfterHours, args = ())
     entAfThread.start()
-    attackTread.start()
+    timeKeeper("Scan", writeFile, "Beginning")
+    attackThread.start()
     attackThread.join()
     entAfThread.join()
+    timeKeeper("Scan", writeFile, "Ending")
 
 
 #end scanEntAf()
@@ -221,9 +264,11 @@ def pingEntAf(target, size, count):
     attackThread = threading.Thread(target=attacks.ping, args = (target, size, count))
     entAfThread = threading.Thread(target = enterpriseAfterHours, args = ())
     entAfThread.start()
-    attackTread.start()
+    timeKeeper("Ping Attack", writeFile, "Beginning")
+    attackThread.start()
     attackThread.join()
     entAfThread.join()
+    timeKeeper("Ping Attack", writeFile, "Ending")
 
 #end pingEntAf()
 def DOSEntAf(target):
@@ -231,14 +276,17 @@ def DOSEntAf(target):
     attackThread = threading.Thread(target=attacks.hPing3, args = (target, 5000, sudoPwd))
     entAfThread = threading.Thread(target = enterpriseAfterHours, args = ())
     entAfThread.start()
-    attackTread.start()
+    timeKeeper("Ping Attack", writeFile, "Beginning")
+    attackThread.start()
     attackThread.join()
     entAfThread.join()
+    timeKeeper("Ping Attack", writeFile, "Ending")
 
 #end DOSEntAf()
 
 
+DOSEntAf(ghIP)
 
-
+writeFile.close()
 
 
