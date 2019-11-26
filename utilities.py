@@ -7,11 +7,11 @@ def timeKeeper(moduleName,textFile, mode):
     #This functions accepts the name of the module, the name of the text file to write to, and whether the method started or ended and adds the start and end timestamps to a textfile for logging
 
     currentTime = datetime.datetime.now()
-    print(currentTime)    
-    O = open(textFile, "a+")
+    #print(currentTime)    
+    #O = open(textFile, "a+")
     output = str(moduleName) + " " + mode + " " + str(currentTime) + "\n"
     O.write(str(output))
-    O.close()
+    #O.close()
 #end timeKeeper
 
 

@@ -18,12 +18,12 @@ import threading # needed to operate lamp with other devices
 LOCAL VARIABLES: will need to be updated per device
 
 """
-sudoPwd = "N@chos4life"  # local password to utilize sudo
+sudoPwd = "BajaB1@st"  # local password to utilize sudo
 
 
 tpLightIP = "10.0.0.3"  #ip of the tp link lamp
 avacomIP= "10.0.0.2"   #ip of the avacom webcam
-ghIP = "10.0.0.10"      #ip of the google home
+ghIP = "10.0.0.8"      #ip of the google home
 
 
 """
@@ -95,7 +95,7 @@ def pingWakeUp(target,size,count):
 
 def scanWakeUp(target):
     #accepts the IP of the device to scan
-    attackThread = threading.Thread(target=attacks.scan, args = (target))
+    attackThread = threading.Thread(target=attacks.scanning, args = (target))
     wakeThread = threading.Thread(target = wakeUp, args = ())
     wakeThread.start()
     timeKeeper("Scan", writeFile, "Beginning")
@@ -137,7 +137,7 @@ def houseParty():
 
 def scanHouseParty(target):
     #accepts the IP of the device to scan
-    attackThread = threading.Thread(target=attacks.scan, args = (target))
+    attackThread = threading.Thread(target=attacks.scanning, args = (target))
     housePartyThread = threading.Thread(target = houseParty, args = ())
     houseParty.start()
     timeKeeper("Scan", writeFile, "Begining")
@@ -189,7 +189,7 @@ def enterpriseNormalHours():
 
 def scanEntNH(target):
     #accepts the IP of the device to scan
-    attackThread = threading.Thread(target=attacks.scan, args = (target))
+    attackThread = threading.Thread(target=attacks.scanning, args = (target))
     entNHThread = threading.Thread(target = enterpriseNormalHours, args = ())
     entNHThread.start()
     timeKeeper("Scan", writeFile, "Beginning")
@@ -247,7 +247,7 @@ def enterpriseAfterHours():
 
 def scanEntAf(target):
     #accepts the IP of the device to scan
-    attackThread = threading.Thread(target=attacks.scan, args = (target))
+    attackThread = threading.Thread(target=attacks.scanning, args = (target))
     entAfThread = threading.Thread(target = enterpriseAfterHours, args = ())
     entAfThread.start()
     timeKeeper("Scan", writeFile, "Beginning")
@@ -285,8 +285,11 @@ def DOSEntAf(target):
 #end DOSEntAf()
 
 
-DOSEntAf(ghIP)
+
+enterpriseAfterHours()
 
 writeFile.close()
+
+
 
 
