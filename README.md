@@ -30,3 +30,6 @@ Each scenario has an attack scenario created for it.  The attack scenarios utili
 	DOS: performs a denial of service attack on a specified IP
 	Scan: scans the specified IP
 	ping: launches a customizeable ping at specified IP
+
+Current Issues:
+Currently trying to connect to the avacom camera in quick succession will cause the connection to be refused.
