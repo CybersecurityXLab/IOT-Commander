@@ -21,9 +21,9 @@ LOCAL VARIABLES: will need to be updated per device
 sudoPwd = "BajaB1@st"  # local password to utilize sudo
 
 
-tpLightIP = "10.0.0.8"  #ip of the tp link lamp
+tpLightIP = "10.0.0.2"  #ip of the tp link lamp
 avacomIP= "10.0.0.14"   #ip of the avacom webcam
-ghIP = "10.0.0.9"      #ip of the google home
+ghIP = "10.0.0.10"      #ip of the google home
 
 
 """
@@ -122,18 +122,19 @@ def houseParty():
     audioPlayer.compMusicOn()
     time.sleep(5)
     audioPlayer.ghYoutubeOpen()
- 
     
-    print("camera turn")
-    AvacomControl.avacomHorizPan(browser, 2)
-    print("camera turned")    
-    lampThread.join()
+    AvacomControl.avacomHorizPan(browser, 2)  
+    
+    lampThread.join(5)
 
     time.sleep(5)
     audioPlayer.ghYoutubeClose()
     time.sleep(5)
     audioPlayer.compMusicOff()
+    time.sleep(2)
+    
     timeKeeper("House Party", writeFile, "Ending")
+    browser.close()
     
 #end houseParty
 
@@ -191,6 +192,7 @@ def enterpriseNormalHours():
 
 def scanEntNH(target):
     #accepts the IP of the device to scan
+
     attackThread = threading.Thread(target=attacks.scanning, args = (target))
     entNHThread = threading.Thread(target = enterpriseNormalHours, args = ())
     entNHThread.start()
@@ -287,14 +289,14 @@ def DOSEntAf(target):
 #end DOSEntAf()
 
 
-houseParty()
-time.sleep(10)
-DOSHouseParty(ghIP)
-time.sleep(10)
-scanHouseParty(ghIP)
-time.sleep(10)
-pingHouseParty(ghIP, 500, 50)
-time.sleep(10)
+enterpriseAfterHours()
+time.sleep(20)
+DOSEntAf(avacomIP)
+time.sleep(20)
+scanEntAf(avacomIP)
+time.sleep(20)
+pingEntAf(avacomIP, 50, 50)
+time.sleep(20)
 
 
 
