@@ -133,15 +133,15 @@ def avacomHorizPan(driver, duration):
 
     for i in range(duration):
         clickAvacomDirectionalButton(driver, "\"Right\"", 25)
-        time.sleep(5)
+        time.sleep(3)
         clickAvacomDirectionalButton(driver, "\"Left\"", 25)
-        time.sleep(5)
+        time.sleep(3)
 
 def avacomVertPan(driver, duration):
 
     for i in range(duration):
         clickAvacomDirectionalButton(driver, "\"Up\"", 25)
-        time.sleep(5)
+        time.sleep(3)
         clickAvacomDirectionalButton(driver, "\"Down\"", 25)
-        time.sleep(5)
+        time.sleep(3)
 

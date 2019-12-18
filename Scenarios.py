@@ -21,9 +21,9 @@ LOCAL VARIABLES: will need to be updated per device
 sudoPwd = "BajaB1@st"  # local password to utilize sudo
 
 
-tpLightIP = "10.0.0.3"  #ip of the tp link lamp
-avacomIP= "10.0.0.2"   #ip of the avacom webcam
-ghIP = "10.0.0.8"      #ip of the google home
+tpLightIP = "10.0.0.8"  #ip of the tp link lamp
+avacomIP= "10.0.0.14"   #ip of the avacom webcam
+ghIP = "10.0.0.9"      #ip of the google home
 
 
 """
@@ -56,7 +56,7 @@ def wakeUp():
     lampControl.lightOn(tpLightIP)
     time.sleep(5)
     audioPlayer.ghWeather()
-    time.sleep(5)
+    time.sleep(10)
     audioPlayer.compMusicOn()
     time.sleep(5)
     audioPlayer.ghYoutubeOpen()
@@ -113,19 +113,21 @@ def scanWakeUp(target):
 
 def houseParty():
     timeKeeper("House Party", writeFile, "Beginning")
-    browser = AvacomControl.accessAvacomWebPortal(avacomIP)
-    time.sleep(10)
     lampThread= threading.Thread(target = lampControl.strobeLight, args=(tpLightIP,10))
+    browser = AvacomControl.accessAvacomWebPortal(avacomIP)
+    time.sleep(5)
+ 
     lampThread.start()
     
     audioPlayer.compMusicOn()
     time.sleep(5)
     audioPlayer.ghYoutubeOpen()
-    time.sleep(5)
-
-    AvacomControl.clickAvacomDirectionalButton(browser, "\"Right\"", 15)
+ 
+    
+    print("camera turn")
+    AvacomControl.avacomHorizPan(browser, 2)
+    print("camera turned")    
     lampThread.join()
-
 
     time.sleep(5)
     audioPlayer.ghYoutubeClose()
@@ -139,11 +141,11 @@ def scanHouseParty(target):
     #accepts the IP of the device to scan
     attackThread = threading.Thread(target=attacks.scanning, args = (target))
     housePartyThread = threading.Thread(target = houseParty, args = ())
-    houseParty.start()
+    housePartyThread.start()
     timeKeeper("Scan", writeFile, "Begining")
     attackThread.start()
     attackThread.join()
-    houseParty.join()
+    housePartyThread.join()
     timeKeeper("Scan", writeFile, "Ending")
 #end scanHouseParty()
 
@@ -151,11 +153,11 @@ def pingHouseParty(target, size, count):
     #accepts the IP of the device to ping
     attackThread = threading.Thread(target=attacks.ping, args = (target, size, count))
     housePartyThread = threading.Thread(target = houseParty, args = ())
-    houseParty.start()
+    housePartyThread.start()
     timeKeeper("Ping Attack", writeFile, "Beginning")
     attackThread.start()
     attackThread.join()
-    houseParty.join()
+    housePartyThread.join()
     timeKeeper("Ping", writeFile, "Ending")
 
 #end pingHouseParty()
@@ -181,7 +183,7 @@ def DOSHouseParty(target):
 def enterpriseNormalHours():
     timeKeeper("Enterprise Normal Businesss Hours", writeFile, "Begining")
     browser = AvacomControl.accessAvacomWebPortal(avacomIP)
-    time.sleep(10)
+    time.sleep(5)
     AvacomControl.avacomHorizPan(browser, 2)
     browser.close()
     timeKeeper("Enterprise Normal Business Hours", writeFile, "Ending")
@@ -276,19 +278,26 @@ def DOSEntAf(target):
     attackThread = threading.Thread(target=attacks.hPing3, args = (target, 5000, sudoPwd))
     entAfThread = threading.Thread(target = enterpriseAfterHours, args = ())
     entAfThread.start()
-    timeKeeper("Ping Attack", writeFile, "Beginning")
+    timeKeeper("DOS Attack", writeFile, "Beginning")
     attackThread.start()
     attackThread.join()
     entAfThread.join()
-    timeKeeper("Ping Attack", writeFile, "Ending")
+    timeKeeper("DOS Attack", writeFile, "Ending")
 
 #end DOSEntAf()
 
 
+houseParty()
+time.sleep(10)
+DOSHouseParty(ghIP)
+time.sleep(10)
+scanHouseParty(ghIP)
+time.sleep(10)
+pingHouseParty(ghIP, 500, 50)
+time.sleep(10)
 
-enterpriseAfterHours()
 
-writeFile.close()
+
 
 
 
