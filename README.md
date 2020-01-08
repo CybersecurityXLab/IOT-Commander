@@ -9,9 +9,9 @@ Thomas Setzler
 Files:
 	CoffeeCode/coffee: code for controlling the smart coffee pot from the creator's github
 	AvacomControl.py:  modules to connect to, move, and otherwise control the avacom camera.  Methods are commented with instructions for use
-	IOTCommander.py: refactored IOTCommander code of prior students to be more readable and useable.
+	IOTCommander.py: depreciaterd, refactored IOTCommander code of prior students to be more readable and useable.
 	IOTCommanderOriginal.py: Original IOTCommander code
-	Scenarios.py: module of every scenario, including attacks on scenarios.
+	Scenarios.py: current module of every scenario, including attacks on scenarios.
 	attacks.py: moudle of attacks used to attack devices.  Use instructions included in code comments
 	audioPlayer.py: module for playing recorded instructions for the home assistants.  
 	commander.py: antiquated version of IOTCommander
