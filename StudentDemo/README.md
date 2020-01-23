@@ -1,0 +1,1 @@
+This code is a simple demonstration of the lamp and that avacom camera being controlled by the IOTCommander machine.  The ip address of the light and camera must be specified in the file to run.
