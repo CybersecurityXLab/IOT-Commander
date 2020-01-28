@@ -21,8 +21,8 @@ LOCAL VARIABLES: will need to be updated per device
 sudoPwd = "BajaB1@st"  # local password to utilize sudo
 
 
-tpLightIP = "10.0.0.2"  #ip of the tp link lamp
-avacomIP= "10.0.0.14"   #ip of the avacom webcam
+tpLightIP = "192.168.1.104"  #ip of the tp link lamp
+avacomIP= "192.168.1.116"   #ip of the avacom webcam
 ghIP = "10.0.0.10"      #ip of the google home
 
 
