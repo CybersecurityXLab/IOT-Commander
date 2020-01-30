@@ -13,7 +13,7 @@ def pan():
     camera.close
 
 def main():
-    lampThread = threading.Thread(target = lamp.strobeLight, args = (lampIP, 10))
+    lampThread = threading.Thread(target = lamp.strobeLight, args = (lampIP, 30))
     cameraThread = threading.Thread(target = pan, args = ())
     
     cameraThread.start()
