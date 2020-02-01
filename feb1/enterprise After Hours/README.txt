@@ -1,5 +1,5 @@
 
-This is the testbed setup during the Enterprise after hours scenario.  The TCP light was the target of all attacks during the scenario. 
+This is the testbed setup during the Enterprise after hours scenario.  The avacom camera was the target of all attacks during the scenario. 
 
 
 
