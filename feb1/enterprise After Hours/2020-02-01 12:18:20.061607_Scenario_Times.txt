@@ -1,0 +1,13 @@
+Enterprise After Hours Begining 2020-02-01 12:18:20.639305
+Enterprise After Hours Ending 2020-02-01 12:19:22.648298
+Enterprise After Hours Begining 2020-02-01 12:19:43.005925
+DOS Attack on192.168.1.116 Beginning 2020-02-01 12:19:43.006161
+DOS Attack Ending 2020-02-01 12:19:43.152522
+Enterprise After Hours Begining 2020-02-01 12:20:03.505123
+Scan on 192.168.1.116  Beginning 2020-02-01 12:20:03.505357
+Enterprise After Hours Ending 2020-02-01 12:21:05.862270
+Scan Ending 2020-02-01 12:21:05.862338
+Enterprise After Hours Begining 2020-02-01 12:21:26.219889
+Ping Attack on 192.168.1.116 Beginning 2020-02-01 12:21:26.220028
+Enterprise After Hours Ending 2020-02-01 12:22:27.697366
+Ping Attack Ending 2020-02-01 12:22:27.697441

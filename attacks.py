@@ -81,7 +81,7 @@ def avacomCommand(ip, command):
 #end avacomCommand
 
 
-#avacomCommand("10.0.0.12","ping -s 5000 -c 100 10.0.0.4")
+#avacomCommand("192.168.1.116","ping -s 5000 -c 100 192.168.1.100")
 #print("done")
 
 

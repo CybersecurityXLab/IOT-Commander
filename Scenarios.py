@@ -81,9 +81,9 @@ def DOSWakeUp(target):
     timeKeeper("DoS Attack", writeFile, "Ending")
 #end DOSWakeUp()
 
-def pingWakeUp(target,size,count):
+def pingWakeUp(target):
     #accepts the IP of the device to attack, the size of the packet, and the number of attacks
-    attackThread = threading.Thread(target=attacks.ping, args = (target, size, count))
+    attackThread = threading.Thread(target=attacks.avacomCommand, args = ("192.168.1.116",("ping -s 5000 -c 100" + str(target))))
     wakeThread = threading.Thread(target = wakeUp, args = ())
     wakeThread.start()
     timeKeeper("Ping Attack", writeFile, "Beginning")
@@ -150,9 +150,9 @@ def scanHouseParty(target):
     timeKeeper("Scan", writeFile, "Ending")
 #end scanHouseParty()
 
-def pingHouseParty(target, size, count):
+def pingHouseParty(target):
     #accepts the IP of the device to ping
-    attackThread = threading.Thread(target=attacks.ping, args = (target, size, count))
+    attackThread = threading.Thread(target=attacks.avacomCommand, args = ("192.168.1.116",("ping -s 5000 -c 100" + str(target))))
     housePartyThread = threading.Thread(target = houseParty, args = ())
     housePartyThread.start()
     timeKeeper("Ping Attack", writeFile, "Beginning")
@@ -203,9 +203,9 @@ def scanEntNH(target):
     timeKeeper("Scan", writeFile, "Ending")
 #end scaneEntNH()
 
-def pingEntNH(target, size, count):
+def pingEntNH(target):
     #accepts the IP of the device to scan
-    attackThread = threading.Thread(target=attacks.ping, args = (target, size, count))
+    attackThread = threading.Thread(target=attacks.avacomCommand, args = ("192.168.1.116",("ping -s 5000 -c 100" + str(target))))
     entNHThread = threading.Thread(target = enterpriseNormalHours, args = ())
     entNHThread.start()
     timeKeeper("Ping Attack", writeFile, "Beginning")
@@ -254,7 +254,7 @@ def scanEntAf(target):
     attackThread = threading.Thread(target=attacks.scanning, args = (target))
     entAfThread = threading.Thread(target = enterpriseAfterHours, args = ())
     entAfThread.start()
-    timeKeeper("Scan", writeFile, "Beginning")
+    timeKeeper(("Scan on " + str(target)), writeFile, " Beginning")
     attackThread.start()
     attackThread.join()
     entAfThread.join()
@@ -263,12 +263,12 @@ def scanEntAf(target):
 
 #end scanEntAf()
 
-def pingEntAf(target, size, count):
+def pingEntAf(target):
     #accepts the IP of the device to scan
-    attackThread = threading.Thread(target=attacks.ping, args = (target, size, count))
+    attackThread = threading.Thread(target=attacks.avacomCommand, args = ("192.168.1.116",("ping -s 5000 -c 100" + str(target))))
     entAfThread = threading.Thread(target = enterpriseAfterHours, args = ())
     entAfThread.start()
-    timeKeeper("Ping Attack", writeFile, "Beginning")
+    timeKeeper(("Ping Attack on " + str(target)), writeFile, "Beginning")
     attackThread.start()
     attackThread.join()
     entAfThread.join()
@@ -280,7 +280,7 @@ def DOSEntAf(target):
     attackThread = threading.Thread(target=attacks.hPing3, args = (target, 5000, sudoPwd))
     entAfThread = threading.Thread(target = enterpriseAfterHours, args = ())
     entAfThread.start()
-    timeKeeper("DOS Attack", writeFile, "Beginning")
+    timeKeeper(("DOS Attack on"  + str(target)), writeFile, "Beginning")
     attackThread.start()
     attackThread.join()
     entAfThread.join()
@@ -288,16 +288,18 @@ def DOSEntAf(target):
 
 #end DOSEntAf()
 
-
+lampControl.lightOn(tpLightIP)
 enterpriseAfterHours()
 time.sleep(20)
+lampControl.lightOn(tpLightIP)
 DOSEntAf(avacomIP)
 time.sleep(20)
+lampControl.lightOn(tpLightIP)
 scanEntAf(avacomIP)
 time.sleep(20)
-pingEntAf(avacomIP, 50, 50)
+lampControl.lightOn(tpLightIP)
+pingEntAf(avacomIP)
 time.sleep(20)
-
 
 
 

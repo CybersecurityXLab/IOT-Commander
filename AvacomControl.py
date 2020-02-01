@@ -145,3 +145,5 @@ def avacomVertPan(driver, duration):
         clickAvacomDirectionalButton(driver, "\"Down\"", 25)
         time.sleep(3)
 
+
+
