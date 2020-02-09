@@ -13,6 +13,7 @@ Thomas Setzler
 * attacks.py: moudle of attacks used to attack devices.  Use instructions included in code comments
 * audioPlayer.py: module for playing recorded instructions for the home assistants.  
 * lampControl.py: modules for controling TPLink lamp.  Instructions included in comments
+* packets.py: code to parse packet captures for tcp/udp connections using scapy
 
 
 ###### Depreciated Files:
