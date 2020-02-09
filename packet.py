@@ -2,32 +2,10 @@ from scapy.all import *
 import os
 
 #Global Variables
-homeRange = "192.168.1.100"
-
-
-"""
-testPacket = rdpcap("../IOT-Commander/Depricated/testJan28.pcap")
-TCPcount = 0
-UDPcount = 0
-
-for packet in testPacket:
-	if (packet.haslayer(IP)):
-		source = packet.getlayer(IP).src
-		dest = packet.getlayer(IP).dst
-		print(source + " " + dest)
-	if (packet.haslayer(TCP)):
-		sp = packet.sport
-		dp  = packet.dport
-		TCPcount += 1
-
-		print(str(sp) + " " + str(dp))
-	if(TCPcount == 5):
-		break
-
-
-print (str(TCPcount) + " tcp packets")
-print (str(UDPcount) + " udp packets")
-"""
+#ip of general range of local network
+homeRange = "192.168.1.100" 
+#locatiot & name of pcap file to parse
+location = "../IOT-Commander/Depricated/testJan28.pcap"
 
 def ipRangeCheck(ip):
 	"""
@@ -86,7 +64,10 @@ def ConnectionCounter(capture):
 
 
 def main():
-	packet = rdpcap("../IOT-Commander/Depricated/testJan28.pcap")
+	"""
+	Parses the provided capture packet by packet for TCP, UDP connections
+	"""
+	packet = rdpcap(location)
 	inboundTCP, outboundTCP, localTCP, inboundUDP, outboundUDP, localUDP = ConnectionCounter(packet)
 	print("inbound TCP: " + str(inboundTCP))
 	print("outbound TCP: " + str(outboundTCP))
