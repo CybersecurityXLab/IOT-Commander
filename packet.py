@@ -5,7 +5,7 @@ import os
 #ip of general range of local network
 homeRange = "192.168.1.100" 
 #locatiot & name of pcap file to parse
-location = "../IOT-Commander/Depricated/testJan28.pcap"
+#location = "../IOT-Commander/feb1/enterprise normal hours/BR.cap0"
 
 def ipRangeCheck(ip):
 	"""
@@ -20,7 +20,7 @@ def ipRangeCheck(ip):
 			break
 		elif (str(ip[i]) == "."):
 			periodCT += 1
-		elif (homeRange[i] != str(ip[i])):
+		elif (str(homeRange[i]) != str(ip[i])):
 			inhome == False
 			break
 	return inhome
@@ -45,6 +45,7 @@ def ConnectionCounter(capture):
 				localTCP += 1
 			elif (sourceIn):
 				outboundTCP +=1
+				#print(str(packet.getlayer(IP).src) + " " + str(packet.getlayer(IP).dst))
 			elif (destIn):
 				inboundTCP += 1
 		elif (packet.haslayer(IP) and packet.haslayer(UDP)):
@@ -67,6 +68,7 @@ def main():
 	"""
 	Parses the provided capture packet by packet for TCP, UDP connections
 	"""
+	location = raw_input("Please enter name/path of pcap:\n")
 	packet = rdpcap(location)
 	inboundTCP, outboundTCP, localTCP, inboundUDP, outboundUDP, localUDP = ConnectionCounter(packet)
 	print("inbound TCP: " + str(inboundTCP))
