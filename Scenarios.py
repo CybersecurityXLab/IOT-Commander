@@ -12,6 +12,7 @@ import audioPlayer, lampControl, utilities,AvacomControl,attacks #required modul
 import time # needed to sleep between commands
 import datetime
 import threading # needed to operate lamp with other devices
+from multiprocessing import Process
 
 
 """
@@ -24,6 +25,7 @@ sudoPwd = "BajaB1@st"  # local password to utilize sudo
 tpLightIP = "192.168.1.104"  #ip of the tp link lamp
 avacomIP= "192.168.1.116"   #ip of the avacom webcam
 ghIP = "10.0.0.10"      #ip of the google home
+commanderIP = "192.168.1.100" #ip of iot commander
 
 
 """
@@ -197,13 +199,12 @@ def enterpriseNormalHours():
     timeKeeper("Enterprise Normal Businesss Hours", writeFile, "Begining")
     browser = AvacomControl.accessAvacomWebPortal(avacomIP)
     time.sleep(5)
-    timeKeeper("Google Home Turn on Light ", writeFile, " ")
-    audioPlayer.ghLightOn()
+    timeKeeper("Light Turned on", writeFile, " ")
+    lampControl.lightOn(tpLightIP)
     timeKeeper("Avacom horizontal pan", writeFile, "Beginning")
     AvacomControl.avacomHorizPan(browser, 2)
     timeKeeper("Avacom horizontal pan", writeFile, "Ending")
-    timeKeeper("Google Home Turn off Light", writeFile, "Ending")
-    audioPlayer.ghLightOff()
+
     browser.close()
     timeKeeper("Enterprise Normal Business Hours", writeFile, "Ending")
 #end enterpriseNormalHours
@@ -253,6 +254,7 @@ def DOSEntNH(target):
 
 def enterpriseAfterHours():
     timeKeeper("Enterprise After Hours", writeFile, "Begining")
+    print("starting")
     #Browser setup
     browser = AvacomControl.accessAvacomWebPortal(avacomIP)
     time.sleep(10)
@@ -275,8 +277,8 @@ def enterpriseAfterHours():
 
 def scanEntAf(target):
     #accepts the IP of the device to scan
-    attackThread = threading.Thread(target=attacks.scanning, args = (str(target)))
     entAfThread = threading.Thread(target = enterpriseAfterHours, args = ())
+    attackThread = threading.Thread(target=attacks.scanning, args = (str(target)))
     entAfThread.start()
     timeKeeper(("Scan on " + str(target)), writeFile, " Beginning")
     attackThread.start()
@@ -311,7 +313,19 @@ def DOSEntAf(target):
     timeKeeper("DOS Attack", writeFile, "Ending")
 
 #end DOSEntAf()
-"""
+
+def bruteForceEntAf(target, pwdFile):
+    attackThread = threading.Thread(target = attacks.bruteForce, args = (target, pwdFile, sudoPwd))
+    entAfThread = threading.Thread(target = enterpriseAfterHours, args = ())
+    entAfThread.start()
+    timeKeeper(("Brute Force Attack on"  + str(target)), writeFile, "Beginning")
+    attackThread.start()
+    attackThread.join()
+    entAfThread.join()
+    timeKeeper("Brute Force Attack", writeFile, "Ending") 
+#end bruteForceEntAf
+
+
 lampControl.lightOn(tpLightIP)
 enterpriseAfterHours()
 time.sleep(20)
@@ -322,10 +336,11 @@ lampControl.lightOn(tpLightIP)
 scanEntAf(avacomIP)
 time.sleep(20)
 lampControl.lightOn(tpLightIP)
-pingEntAf(avacomIP)
+pingEntAf(tpLightIP)
 time.sleep(20)
-"""
-attacks.avacomPing(str(avacomIP), "192.168.1.100")
+lampControl.lightOn(tpLightIP)
+bruteForceEntAf(avacomIP,"pwds.txt")
+
 
 
 

