@@ -48,6 +48,13 @@ def timeKeeper(moduleName,textFile, mode):
     textFile.write(str(output))
     #O.close()
 #end timeKeeper
+
+def stringCopy(string2Copy):
+    newString = ""
+    for char in string2Copy:
+        newString += char
+
+    return newString
 """
     Wake Up Scenarios
 **********************************************************************************************************
@@ -278,13 +285,15 @@ def enterpriseAfterHours():
 def scanEntAf(target):
     #accepts the IP of the device to scan
     entAfThread = threading.Thread(target = enterpriseAfterHours, args = ())
-    attackThread = threading.Thread(target=attacks.scanning, args = (str(target)))
+    #attackThread = threading.Thread(target=attacks.scanning, args = (target))
     entAfThread.start()
     timeKeeper(("Scan on " + str(target)), writeFile, " Beginning")
-    attackThread.start()
-    attackThread.join()
-    entAfThread.join()
+    attacks.scanning(target)
+    #attackThread.start()
+    #attackThread.join()
     timeKeeper("Scan", writeFile, "Ending")
+    entAfThread.join()
+    
 
 
 #end scanEntAf()

@@ -48,7 +48,7 @@ def scanning(ip):
     Parameters: 
         ip: <string> ip address of device to scan
     """   
-    command = 'nmap -p- ' + ip
+    command = 'nmap -p 0-1024 -T2 ' + ip
     os.system(command)
 
 #end scanning
