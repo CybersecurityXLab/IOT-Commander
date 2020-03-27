@@ -196,6 +196,17 @@ def DOSHouseParty(target):
 
 #end DOSHouseParty()
 
+def bruteForceHouseParty(target, pwdFile):
+    attackThread = threading.Thread(target = attacks.bruteForce, args = (target, pwdFile, sudoPwd))
+    partyThread = threading.Thread(target = houseParty, args = ())
+    partyThread.start()
+    timeKeeper(("Brute Force Attack on"  + str(target)), writeFile, "Beginning")
+    attackThread.start()
+    attackThread.join()
+    partyThread.join()
+    timeKeeper("Brute Force Attack", writeFile, "Ending") 
+#end bruteForceHouseParty
+
 
 """
     Enterprise Normal Business Hours Scenarios
@@ -335,20 +346,20 @@ def bruteForceEntAf(target, pwdFile):
 #end bruteForceEntAf
 
 
-lampControl.lightOn(tpLightIP)
-enterpriseAfterHours()
+
+HouseParty()
 time.sleep(20)
-lampControl.lightOn(tpLightIP)
-DOSEntAf(avacomIP)
+
+DOSHouseParty(avacomIP)
 time.sleep(20)
-lampControl.lightOn(tpLightIP)
-scanEntAf(avacomIP)
+
+scanHouseParty(avacomIP)
 time.sleep(20)
-lampControl.lightOn(tpLightIP)
-pingEntAf(tpLightIP)
+
+pingHouseParty(tpLightIP)
 time.sleep(20)
-lampControl.lightOn(tpLightIP)
-bruteForceEntAf(avacomIP,"pwds.txt")
+
+bruteForceHouseParty(avacomIP,"pwds.txt")
 
 
 
