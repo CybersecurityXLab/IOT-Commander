@@ -26,6 +26,7 @@ tpLightIP = "192.168.1.104"  #ip of the tp link lamp
 avacomIP= "192.168.1.116"   #ip of the avacom webcam
 ghIP = "10.0.0.10"      #ip of the google home
 commanderIP = "192.168.1.100" #ip of iot commander
+computerIP = "192.168.1.129" #ip of Amazon echo "computer"
 
 
 """
@@ -111,12 +112,13 @@ def pingWakeUp(target):
 
 def scanWakeUp(target):
     #accepts the IP of the device to scan
-    attackThread = threading.Thread(target=attacks.scanning, args = (target))
+    #attackThread = threading.Thread(target=attacks.scanning, args = (target))
     wakeThread = threading.Thread(target = wakeUp, args = ())
     wakeThread.start()
     timeKeeper("Scan", writeFile, "Beginning")
-    attackThread.start()
-    attackThread.join()
+    attacks.scanning(target)
+    #attackThread.start()
+    #attackThread.join()
     wakeThread.join()
     timeKeeper("Scan", writeFile, "Ending")
 #end scanWakeUp()
@@ -347,19 +349,20 @@ def bruteForceEntAf(target, pwdFile):
 
 
 
-HouseParty()
+wakeUp()
 time.sleep(20)
 
-DOSHouseParty(avacomIP)
+DOSWakeUp(computerIP)
 time.sleep(20)
 
-scanHouseParty(avacomIP)
+scanWakeUp(computerIP)
 time.sleep(20)
 
-pingHouseParty(tpLightIP)
+pingWakeUp(computerIP)
 time.sleep(20)
 
-bruteForceHouseParty(avacomIP,"pwds.txt")
+bruteForceWakeUp(computerIP,"pwds.txt")
+
 
 
 
