@@ -130,7 +130,7 @@ def clickAvacomDirectionalButton(driver, direction, numClicks):
     #time.sleep(5)
 
 def avacomHorizPan(driver, duration):
-
+#accepts the driver and the length of panning in iterations and performs a horizontal pan
     for i in range(duration):
         clickAvacomDirectionalButton(driver, "\"Right\"", 25)
         time.sleep(3)
@@ -138,7 +138,7 @@ def avacomHorizPan(driver, duration):
         time.sleep(3)
 
 def avacomVertPan(driver, duration):
-
+#accepts the driver and length of panning in iterations and performs a vertical pan
     for i in range(duration):
         clickAvacomDirectionalButton(driver, "\"Up\"", 25)
         time.sleep(3)
