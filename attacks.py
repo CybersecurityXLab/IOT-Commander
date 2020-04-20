@@ -67,7 +67,7 @@ def bruteForce(ip, pwdFile, pwd):
 #end bruteForce
 
 def avacomCommand(ip, command):
-    # fix later, does not pass the command in proprely without hardcodimng it with a b in front of the string
+    #depricated version of avacomPing
     """
     This method passes a terminal command to the avacom webcam via telnet
         Parameters:
@@ -83,7 +83,6 @@ def avacomCommand(ip, command):
 #end avacomCommand
 
 def avacomPing(ip, target):
-    # fix later, does not pass the command in proprely without hardcodimng it with a b in front of the string
     """
     This method passes a terminal command to the avacom webcam via telnet
         Parameters:
