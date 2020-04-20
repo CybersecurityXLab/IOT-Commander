@@ -50,7 +50,7 @@ def timeKeeper(moduleName,textFile, mode):
     #O.close()
 #end timeKeeper
 
-def stringCopy(string2Copy):
+def stringCopy(string2Copy): #depricated function used for error resolution
     newString = ""
     for char in string2Copy:
         newString += char
@@ -163,12 +163,13 @@ def houseParty():
 
 def scanHouseParty(target):
     #accepts the IP of the device to scan
-    attackThread = threading.Thread(target=attacks.scanning, args = (target))
+    #attackThread = threading.Thread(target=attacks.scanning, args = (target))
     housePartyThread = threading.Thread(target = houseParty, args = ())
     housePartyThread.start()
     timeKeeper("Scan", writeFile, "Begining")
-    attackThread.start()
-    attackThread.join()
+    attacks.scanning(target)
+    #attackThread.start()
+    #attackThread.join()
     housePartyThread.join()
     timeKeeper("Scan", writeFile, "Ending")
 #end scanHouseParty()
@@ -232,12 +233,13 @@ def enterpriseNormalHours():
 def scanEntNH(target):
     #accepts the IP of the device to scan
 
-    attackThread = threading.Thread(target=attacks.scanning, args = (target))
+    #attackThread = threading.Thread(target=attacks.scanning, args = (target))
     entNHThread = threading.Thread(target = enterpriseNormalHours, args = ())
     entNHThread.start()
     timeKeeper("Scan", writeFile, "Beginning")
-    attackThread.start()
-    attackThread.join()
+    attacks.scanning(target)
+    #attackThread.start()
+    #attackThread.join()
     entNHThread.join()
     timeKeeper("Scan", writeFile, "Ending")
 #end scaneEntNH()
@@ -348,7 +350,8 @@ def bruteForceEntAf(target, pwdFile):
 #end bruteForceEntAf
 
 
-
+"""
+#example code to run the scenario with 20 second breaks between runs
 wakeUp()
 time.sleep(20)
 
@@ -362,6 +365,7 @@ pingWakeUp(computerIP)
 time.sleep(20)
 
 bruteForceWakeUp(computerIP,"pwds.txt")
+"""
 
 
 
