@@ -14,6 +14,7 @@ Thomas Setzler
 * audioPlayer.py: module for playing recorded instructions for the home assistants.  
 * lampControl.py: modules for controling TPLink lamp.  Instructions included in comments
 * packets.py: code to parse packet captures for tcp/udp connections using scapy
+* portScanner.py: function to scan all ports in a provided list of IPs and output it to a single file
 
 
 ###### Depreciated Files:
@@ -34,6 +35,8 @@ Each scenario has an attack scenario created for it.  The attack scenarios utili
 * DOS: performs a denial of service attack on a specified IP
 * Scan: scans the specified IP
 * ping: launches a customizeable ping at specified IP
+* avacomPing: launches a ping attack from the avacom camera to a target
+* bruteforce: launches a password cracking attempt via hydra and a specified passwords file
 
-## Current Issues:
-Currently trying to connect to the avacom camera in quick succession will cause the connection to be refused.
+## Known Issues:
+Trying to connect to the avacom camera in rapid succession will cause the connection to be refused.
