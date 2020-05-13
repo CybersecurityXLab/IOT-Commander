@@ -24,7 +24,7 @@ sudoPwd = "BajaB1@st"  # local password to utilize sudo
 
 tpLightIP = "192.168.1.104"  #ip of the tp link lamp
 avacomIP= "192.168.1.116"   #ip of the avacom webcam
-ghIP = "10.0.0.10"      #ip of the google home
+ghIP = "192.168.1.112"      #ip of the google home
 commanderIP = "192.168.1.100" #ip of iot commander
 computerIP = "192.168.1.129" #ip of Amazon echo "computer"
 
@@ -121,6 +121,16 @@ def scanWakeUp(target):
     #attackThread.join()
     wakeThread.join()
     timeKeeper("Scan", writeFile, "Ending")
+
+def bruteForceWakeUp(target, pwdFile):
+    attackThread = threading.Thread(target = attacks.bruteForce, args = (target, pwdFile, sudoPwd))
+    wakeUpThread = threading.Thread(target = wakeUp, args = ())
+    wakeUpThread.start()
+    timeKeeper(("Brute Force Attack on"  + str(target)), writeFile, "Beginning")
+    attackThread.start()
+    attackThread.join()
+    wakeUpThread.join()
+    timeKeeper("Brute Force Attack", writeFile, "Ending") 
 #end scanWakeUp()
 
 """
@@ -350,22 +360,23 @@ def bruteForceEntAf(target, pwdFile):
 #end bruteForceEntAf
 
 
-"""
+
 #example code to run the scenario with 20 second breaks between runs
+
 wakeUp()
 time.sleep(20)
 
-DOSWakeUp(computerIP)
+DOSWakeUp(ghIP)
 time.sleep(20)
 
-scanWakeUp(computerIP)
+scanWakeUp(ghIP)
 time.sleep(20)
 
-pingWakeUp(computerIP)
+pingWakeUp(ghIP)
 time.sleep(20)
+ 
+bruteForceWakeUp(ghIP,"pwds.txt")
 
-bruteForceWakeUp(computerIP,"pwds.txt")
-"""
 
 
 
